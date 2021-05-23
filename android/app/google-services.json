@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47722149550",
+    "project_id": "plat-3f2e7",
+    "storage_bucket": "plat-3f2e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47722149550:android:1952d33717899d154e9f3f",
+        "android_client_info": {
+          "package_name": "com.example.real_estate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47722149550-e5ve8muf7fopkom5j65nruc36knc8i2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU66cNp-gbH38RU69LyvSQhW3WGpFDkXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47722149550-e5ve8muf7fopkom5j65nruc36knc8i2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
