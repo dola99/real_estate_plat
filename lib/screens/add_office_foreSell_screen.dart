@@ -393,7 +393,7 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                               ),
                             )
                           : UserAdImagePicker(_pickedImage),
-                      UserAdImagePicker(_pickedImage),
+                     
                       TextFormField(
                         initialValue: _initvalues['title'],
                         focusNode: _titleFocusNode,

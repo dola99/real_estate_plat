@@ -7,23 +7,22 @@ class LoginPlease extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0.0,
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
-              height: 40,
-            ),
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * .1,
-              child: Center(
-                child: Text(
-                  "You Must Login First To visit This Page",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * .1,
+                child: Center(
+                  child: Text(
+                    "You Must Login First To visit This Page",
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
                 ),
               ),
             ),
@@ -39,12 +38,14 @@ class LoginPlease extends StatelessWidget {
               height: 100,
             ),
             GestureDetector(
-              onTap: () => Navigator.of(context).pushReplacementNamed(LoginScreen.routeName),
-                          child: Container(
+              onTap: () => Navigator.of(context)
+                  .pushReplacementNamed(LoginScreen.routeName),
+              child: Container(
                 width: MediaQuery.of(context).size.width * .5,
                 height: MediaQuery.of(context).size.height * .06,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100), color: Colors.blue),
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.blue),
                 child: Center(
                   child: Text(
                     "Login",
