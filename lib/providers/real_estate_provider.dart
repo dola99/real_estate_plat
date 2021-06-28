@@ -69,6 +69,7 @@ class Homes with ChangeNotifier {
           image3: prodData['Image3'],
           image4: prodData['Image4'],
           image5: prodData['Image5'],
+          userid: prodData['creatorId'],
           isFavorite:
               favoriteData == null ? false : favoriteData[prodId] ?? false,
         ));

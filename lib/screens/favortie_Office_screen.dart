@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate/providers/office_provider.dart';
-import 'package:real_estate/providers/real_estate_provider.dart';
-import 'package:real_estate/widgets/card_of_ad_view.dart';
 import 'package:real_estate/widgets/card_of_item_office.dart';
 
 class FavoriteOffice extends StatefulWidget {

@@ -65,4 +65,42 @@ class Egypt {
     'New cairo',
     'El Rehab City'
   ];
+  static List<String> alexandria = ["miami", "abu qir", "maamoura", "max", " mandara"];
+
+  static List<String> giza = [
+    "imbaba",
+    "dokki",
+    "agouza",
+    "6october",
+    "hdayeq el haram",
+    "el mohandsien",
+    "haram",
+    "boulaq el dakror",
+    "shiekh zayed"
+  ];
+
+  static List<String> qalyubia = [
+    "benha",
+    "khanka",
+    "abu zaabl",
+    "shbeen el qnatr",
+    "shoubra el khima",
+    "bahtiem"
+  ];
+
+  static List<String> mounofia = [
+    "ashmon",
+    "sadat",
+    "shbeen el kom",
+    "quesna",
+    "berkt el saba"
+  ];
+
+  static List<String> baniswief = ["new bani swief", "naser", "simsta", "ihnasia"];
+
+  static List<String> garbiea = ["tanta", "samanoud", "zefta", "kafr el zayat"];
+
+  static List<String> sharqia = ["abu kbier", "belbies", "zagazieg", "hussienieh"];
+
+  static List<String> suez = ["ain sokhna", "hai fiesal", "hai suez", "hai ataqa"];
 }

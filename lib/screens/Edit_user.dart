@@ -14,6 +14,7 @@ class EditUserProfile extends StatefulWidget {
 }
 
 class _EditUserProfileState extends State<EditUserProfile> {
+  bool _uplodephoto = false;
   String _uploadedFileURL;
   File _userImageFile;
   final _firstNameFocusNode = FocusNode();
@@ -107,6 +108,9 @@ class _EditUserProfileState extends State<EditUserProfile> {
   }
 
   Future uploadFile() async {
+    setState(() {
+      _uplodephoto = true;
+    });
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile.path)}}');
@@ -117,6 +121,9 @@ class _EditUserProfileState extends State<EditUserProfile> {
       setState(() {
         print(fileURl);
         _uploadedFileURL = fileURl;
+        setState(() {
+          _uplodephoto = false;
+        });
         print(_uploadedFileURL);
       });
     });
@@ -135,122 +142,138 @@ class _EditUserProfileState extends State<EditUserProfile> {
       ),
       body: Form(
         key: _form,
-        child: Center(
-          child: Container(
-            width: mediaquery.width * .8,
-            height: mediaquery.height * 0.5,
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(.4),
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ListView(
-                children: [
-                  _editedUser.imageurl != null
-                      ? CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Colors.white,
-                          child: ClipOval(
-                            child: Image.network(
-                              _editedUser.imageurl,
-                              width: 80,
-                              height: 100,
-                              fit: BoxFit.fill,
+        child: Stack(
+          children: [
+            _uplodephoto
+                ? Container(
+                    width: double.infinity,
+                    height: mediaquery.height,
+                    color: Colors.grey.withOpacity(.02),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : Center(
+                    child: Container(
+                      width: mediaquery.width * .8,
+                      height: mediaquery.height * 0.5,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(.4),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: ListView(
+                          children: [
+                            _editedUser.imageurl != null
+                                ? CircleAvatar(
+                                    radius: 40,
+                                    backgroundColor: Colors.white,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        _editedUser.imageurl,
+                                        width: 80,
+                                        height: 100,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  )
+                                : UserImagePicker(_pickedImage),
+                            TextFormField(
+                              initialValue: _initvalues['FirstName'],
+                              textInputAction: TextInputAction.next,
+                              onFieldSubmitted: (_) {
+                                FocusScope.of(context)
+                                    .requestFocus(_secondNameFocusNode);
+                              },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Provide Your First Name';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _editedUser = User(
+                                  firstName: value,
+                                  id: _editedUser.id,
+                                  lastName: _editedUser.lastName,
+                                  phoneNumber: _editedUser.phoneNumber,
+                                );
+                              },
                             ),
-                          ),
-                        )
-                      : UserImagePicker(_pickedImage),
-                  TextFormField(
-                    initialValue: _initvalues['FirstName'],
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(_secondNameFocusNode);
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please Provide Your First Name';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _editedUser = User(
-                        firstName: value,
-                        id: _editedUser.id,
-                        lastName: _editedUser.lastName,
-                        phoneNumber: _editedUser.phoneNumber,
-                      );
-                    },
-                  ),
-                  TextFormField(
-                    initialValue: _initvalues['LastName'],
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context)
-                          .requestFocus(_phoneNumeberFocusNode);
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please Provide Your First Name';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _editedUser = User(
-                        firstName: _editedUser.firstName,
-                        id: _editedUser.id,
-                        lastName: value,
-                        phoneNumber: _editedUser.phoneNumber,
-                      );
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  TextFormField(
-                    initialValue: _initvalues['PhoneNumber'],
-                    focusNode: _phoneNumeberFocusNode,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Please Provide Your First Name';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _editedUser = User(
-                        firstName: _editedUser.firstName,
-                        id: _editedUser.id,
-                        lastName: _editedUser.lastName,
-                        phoneNumber: value,
-                        imageurl: _uploadedFileURL.toString(),
-                      );
-                    },
-                    keyboardType: TextInputType.number,
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  _isLoading
-                      ? CircularProgressIndicator()
-                      : GestureDetector(
-                          onTap: _saveForm,
-                          child: Center(
-                            child: Container(
-                              width: mediaquery.width * .3,
-                              height: mediaquery.height * .05,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.black),
-                              child: Center(
-                                child: Text("Save",
-                                    style: TextStyle(color: Colors.white)),
-                              ),
+                            TextFormField(
+                              initialValue: _initvalues['LastName'],
+                              textInputAction: TextInputAction.next,
+                              onFieldSubmitted: (_) {
+                                FocusScope.of(context)
+                                    .requestFocus(_phoneNumeberFocusNode);
+                              },
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Provide Your First Name';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _editedUser = User(
+                                  firstName: _editedUser.firstName,
+                                  id: _editedUser.id,
+                                  lastName: value,
+                                  phoneNumber: _editedUser.phoneNumber,
+                                );
+                              },
+                              keyboardType: TextInputType.emailAddress,
                             ),
-                          ),
-                        )
-                ],
-              ),
-            ),
-          ),
+                            TextFormField(
+                              initialValue: _initvalues['PhoneNumber'],
+                              focusNode: _phoneNumeberFocusNode,
+                              textInputAction: TextInputAction.next,
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Provide Your First Name';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _editedUser = User(
+                                  firstName: _editedUser.firstName,
+                                  id: _editedUser.id,
+                                  lastName: _editedUser.lastName,
+                                  phoneNumber: value,
+                                  imageurl: _uploadedFileURL.toString(),
+                                );
+                              },
+                              keyboardType: TextInputType.number,
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            _isLoading
+                                ? Center(child: CircularProgressIndicator())
+                                : GestureDetector(
+                                    onTap: _saveForm,
+                                    child: Center(
+                                      child: Container(
+                                        width: mediaquery.width * .3,
+                                        height: mediaquery.height * .05,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.black),
+                                        child: Center(
+                                          child: Text("Save",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+          ],
         ),
       ),
     );

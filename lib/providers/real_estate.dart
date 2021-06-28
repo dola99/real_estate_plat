@@ -10,7 +10,7 @@ class Home with ChangeNotifier {
   String place;
   String cashordespost;
   String buyorRent;
-  final double price;
+  final int price;
   final int floor;
   final int area;
   final int countroom;
@@ -29,7 +29,7 @@ class Home with ChangeNotifier {
   bool electric;
   bool water;
   bool gardern;
-
+  String userid;
   bool isFavorite;
 
   Home(
@@ -47,6 +47,7 @@ class Home with ChangeNotifier {
       this.asanser,
       this.countroom,
       this.countwc,
+      this.userid,
       this.image1,
       this.image2,
       this.image3,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate/providers/auth.dart';
 import 'package:real_estate/providers/real_estate.dart';
+import 'package:real_estate/screens/ad_of_Home.dart';
 
 class CardOfAdView extends StatelessWidget {
 //  final String id;
@@ -35,40 +37,34 @@ class CardOfAdView extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Container(
-              width: width,
-              height: height * .14,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-                child: Image.network(
-                  home.mainimage,
-                  height: 250,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: height * .015,
-            ),
-            Row(
+            Stack(
               children: [
-                Padding(
-                  padding:  EdgeInsets.only(right: 35),
+                Container(
+                  width: width,
+                  height: height * .14,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    child: Image.network(
+                      home.mainimage,
+                      height: 250,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 0,
                   child: Container(
-                    width: width * .25,
+                    width: width * .20,
                     child: Center(
                       child: Consumer<Home>(
                         builder: (ctx, home, child) => IconButton(
-                          icon: Icon(
-                            home.isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                          ),
-                          color: Theme.of(context).accentColor,
+                          icon: Icon(Icons.favorite),
+                          color: home.isFavorite ? Colors.red : Colors.white,
+                          disabledColor: Colors.red,
                           onPressed: () {
                             home.toggleFavoriteStatus(
                               authData.token,
@@ -80,38 +76,131 @@ class CardOfAdView extends StatelessWidget {
                     ),
                   ),
                 ),
+              ],
+            ),
+            SizedBox(
+              height: height * .015,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: width * .03),
+                  child: Container(
+                    width: width * .40,
+                    child: Text(
+                      "${home.title}",
+                      style: TextStyle(fontFamily: "Lora", fontSize: 15),
+                    ),
+                  ),
+                ),
                 Container(
-                  width: width * .25,
+                  width: width * .35,
                   child: Center(
-                    child: Text("${home.title}"),
+                    child: Text(
+                      "${home.price}.EGP",
+                      style: TextStyle(fontFamily: "Lora", fontSize: 13),
+                    ),
                   ),
                 ),
               ],
             ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: width * .03),
+                  child: Container(
                     width: width * .25,
-                    child: Center(
-                      child: Text("${home.govermnet}"),
+                    child: Text(
+                      "${home.govermnet}",
+                      style: TextStyle(
+                          fontFamily: "Oswald",
+                          fontSize: 13,
+                          color: Colors.grey),
                     ),
                   ),
-                  Container(
-                    width: width * .25,
+                ),
+                Container(
+                  width: width * .30,
+                  child: Text(
+                    "${home.place}",
+                    style: TextStyle(
+                        fontFamily: "Oswald",
+                        fontSize: 13,
+                        color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: width * .01),
+                  child: Container(
+                    width: width * .09,
                     child: Center(
-                      child: Text("${home.place}"),
+                      child: SvgPicture.asset(
+                        'assets/images/area.svg',
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
-                  Container(
-                    width: width * .25,
-                    child: Center(
-                      child: Text("${home.price}.EG"),
+                ),
+                Container(
+                  width: width * .07,
+                  child: Center(
+                    child: Text(
+                      "${home.area}",
+                      style: TextStyle(
+                          fontFamily: "Oswald",
+                          fontSize: 13,
+                          color: Colors.black),
                     ),
                   ),
-                ],
-              ),
+                ),
+                Container(
+                  width: width * .09,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/images/room.svg',
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: width * .05,
+                  child: Center(
+                    child: Text(
+                      "${home.countroom}",
+                      style: TextStyle(
+                          fontFamily: "Oswald",
+                          fontSize: 13,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: width * .09,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/images/wc.svg',
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: width * .05,
+                  child: Center(
+                    child: Text(
+                      "${home.countwc}",
+                      style: TextStyle(
+                          fontFamily: "Oswald",
+                          fontSize: 13,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),

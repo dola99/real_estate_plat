@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate/models/http_exception.dart';
 import 'package:real_estate/providers/auth.dart';
@@ -7,9 +6,6 @@ import 'package:real_estate/screens/second_signup.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = '/Signup_screen';
-  const SignUpScreen({
-    Key key,
-  }) : super(key: key);
 
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -17,11 +13,12 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+
   Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
-  var _isLoading = false;
+  var isLoading = false;
   final _passwordController = TextEditingController();
   bool _eyetrue = true;
   bool _eyetrue2 = true;
@@ -32,7 +29,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: Text('An Error Occurred!'),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text('Okay'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -50,7 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     _formKey.currentState.save();
     setState(() {
-      _isLoading = true;
+      isLoading = true;
     });
     try {
       // Sign user up
@@ -80,7 +77,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     setState(() {
-      _isLoading = false;
+      isLoading = false;
     });
   }
 
@@ -334,28 +331,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: 40,
               ),
-              GestureDetector(
-                onTap: () {
-                  _submit();
-                },
-                child: Container(
-                  width: mediaquery.width * .7,
-                  height: mediaquery.height * .05,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'LoraM'),
+              isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        _submit();
+                      },
+                      child: Container(
+                        width: mediaquery.width * .7,
+                        height: mediaquery.height * .05,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Next",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: 'LoraM'),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           )),
         ),

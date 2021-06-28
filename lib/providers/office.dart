@@ -30,7 +30,8 @@ class Office with ChangeNotifier {
   bool electric;
   bool water;
   bool gardern;
-  final int counttables;
+  int counttables;
+  String userid;
   bool isFavorite;
   Office(
       {this.id,
@@ -59,6 +60,7 @@ class Office with ChangeNotifier {
       this.gardern = false,
       this.security = false,
       this.water,
+      this.userid,
       this.isFavorite = false});
   void _setFavValue(bool newValue) {
     isFavorite = newValue;

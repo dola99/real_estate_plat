@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate/providers/office.dart';
 import 'package:real_estate/providers/office_provider.dart';
+import 'package:real_estate/screens/sellofiice_screen.dart';
 import '../widgets/User_image_ad_picker.dart';
 import '../models/list_of_Governorates.dart';
 
@@ -15,6 +16,8 @@ class AddOfficeForSell extends StatefulWidget {
 }
 
 class _AddOfficeForSellState extends State<AddOfficeForSell> {
+  List<String> places = [];
+  bool _uplodephoto = false;
   String _drowdownvalue = 'Cairo';
   String _drowdownvalue2 = '15 May city';
   String _drowdownvalue3 = 'Buy';
@@ -35,7 +38,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
   File _userImageFile1;
   File _userImageFile2;
   File _userImageFile3;
-
   File _userImageFile4;
   File _userImageFile5;
 
@@ -72,7 +74,7 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
       countroom: 0,
       countwc: 0,
       views: 0,
-      adcount: 0,
+      adcount: 000000 + Selloffice.offices.length ?? 1,
       counttables: 0,
       asanser: false,
       security: false,
@@ -199,9 +201,7 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
         await Provider.of<Offices>(context, listen: false)
             .addproduct(_editedNewOffice)
             .then((_) {
-          setState(() {
-
-          });
+          setState(() {});
         });
       } catch (error) {
         await showDialog(
@@ -381,6 +381,18 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      _editedNewOffice.mainimage != ""
+                          ? Container(
+                              width: mediaquery.width,
+                              height: mediaquery.height * .15,
+                              child: Image(
+                                image: NetworkImage(
+                                  _editedNewOffice.mainimage,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : UserAdImagePicker(_pickedImage),
                       UserAdImagePicker(_pickedImage),
                       TextFormField(
                         initialValue: _initvalues['title'],
@@ -450,10 +462,12 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                                   );
                                 }).toList(),
                                 onChanged: (String newvalue) {
+                                  returnlist();
                                   setState(() {
                                     if (newvalue.isNotEmpty) {
                                       _drowdownvalue = newvalue;
                                     }
+                                    returnlist();
                                     _editedNewOffice.govermnet = _drowdownvalue;
                                   });
                                 }),
@@ -462,9 +476,8 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                                 iconSize: 24,
                                 elevation: 16,
                                 style: TextStyle(color: Colors.black),
-                                items: Egypt.cairo
-                                    .map<DropdownMenuItem<String>>(
-                                        (String value) {
+                                items: places.map<DropdownMenuItem<String>>(
+                                    (String value) {
                                   return DropdownMenuItem(
                                     child: Text(value),
                                     value: value,
@@ -895,11 +908,81 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                                   !_editedNewOffice.asanser;
                             });
                           }),
-                      UserAdImagePicker(_pickedImage2),
-                      UserAdImagePicker(_pickedImage3),
-                      UserAdImagePicker(_pickedImage4),
-                      UserAdImagePicker(_pickedImage5),
-                      UserAdImagePicker(_pickedImage6),
+                      _editedNewOffice.image1 != ""
+                          ? Container(
+                              width: mediaquery.width,
+                              height: mediaquery.height * .15,
+                              child: Image(
+                                image: NetworkImage(
+                                  _editedNewOffice.image1,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : UserAdImagePicker(_pickedImage2),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _editedNewOffice.image2 != ""
+                          ? Container(
+                              width: mediaquery.width,
+                              height: mediaquery.height * .15,
+                              child: Image(
+                                image: NetworkImage(
+                                  _editedNewOffice.image2,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : UserAdImagePicker(_pickedImage3),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _editedNewOffice.image3 != ""
+                          ? Container(
+                              width: mediaquery.width,
+                              height: mediaquery.height * .15,
+                              child: Image(
+                                image: NetworkImage(
+                                  _editedNewOffice.image3,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : UserAdImagePicker(_pickedImage4),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _editedNewOffice.image4 != ""
+                          ? Container(
+                              width: mediaquery.width,
+                              height: mediaquery.height * .15,
+                              child: Image(
+                                image: NetworkImage(
+                                  _editedNewOffice.image4,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : UserAdImagePicker(_pickedImage5),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _editedNewOffice.image5 != ""
+                          ? Container(
+                              width: mediaquery.width,
+                              height: mediaquery.height * .15,
+                              child: Image(
+                                image: NetworkImage(
+                                  _editedNewOffice.image5,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : UserAdImagePicker(_pickedImage6),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       TextFormField(
                         initialValue: _initvalues['price'],
                         focusNode: _priceFocusNode,
@@ -948,5 +1031,68 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
               ),
             ),
     );
+  }
+
+  void returnlist() {
+    if (_drowdownvalue == 'Cairo') {
+      setState(() {
+        places = Egypt.cairo;
+        _drowdownvalue2 = Egypt.cairo.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Giza') {
+      setState(() {
+        places = Egypt.giza;
+        _drowdownvalue2 = Egypt.giza.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Alexandria') {
+      setState(() {
+        places = Egypt.alexandria;
+        _drowdownvalue2 = Egypt.alexandria.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Qalyubia') {
+      setState(() {
+        places = Egypt.qalyubia;
+        _drowdownvalue2 = Egypt.qalyubia.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Monufia') {
+      setState(() {
+        places = Egypt.mounofia;
+        _drowdownvalue2 = Egypt.mounofia.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Beni Suef') {
+      setState(() {
+        places = Egypt.baniswief;
+        _drowdownvalue2 = Egypt.baniswief.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Gharbia') {
+      setState(() {
+        places = Egypt.garbiea;
+        _drowdownvalue2 = Egypt.garbiea.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Sharqia') {
+      setState(() {
+        places = Egypt.sharqia;
+        _drowdownvalue2 = Egypt.sharqia.first.toString();
+        return;
+      });
+    } else if (_drowdownvalue == 'Suez') {
+      setState(() {
+        places = Egypt.suez;
+        _drowdownvalue2 = Egypt.suez.first.toString();
+        return;
+      });
+    } else {
+      setState(() {
+        places = Egypt.cairo;
+        _drowdownvalue2 = Egypt.cairo.first.toString();
+      });
+    }
   }
 }

@@ -15,9 +15,8 @@ class UserAdImagePicker extends StatefulWidget {
 
 class _UserAdImagePickerState extends State<UserAdImagePicker> {
   File _pickedImage;
-  String _uploadedFileURL;
   bool _isloading;
-  void _pickImage() async {
+  void pickImage() async {
     final pickedImageFile = await ImagePicker().getImage(
       source: ImageSource.camera,
       imageQuality: 50,
@@ -42,7 +41,6 @@ class _UserAdImagePickerState extends State<UserAdImagePicker> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         _isloading = false;
-        _uploadedFileURL = fileURl;
       });
     });
   }
@@ -67,11 +65,8 @@ class _UserAdImagePickerState extends State<UserAdImagePicker> {
         : Container(
             width: mediaquery.width,
             height: mediaquery.height * .15,
-            child: _pickedImage != null
-                ? Image(
-                    image: FileImage(_pickedImage),
-                  )
-                : Center(
+            child: _pickedImage == null
+                ? Center(
                     child: TextButton.icon(
                       icon: Icon(Icons.upload_file),
                       onPressed: () {
@@ -80,7 +75,30 @@ class _UserAdImagePickerState extends State<UserAdImagePicker> {
                       },
                       label: Text("Upload Main Image"),
                     ),
-                  ),
-          );
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        width: mediaquery.width,
+                        height: mediaquery.height * .1,
+                        child: Image(
+                            image: FileImage(_pickedImage), fit: BoxFit.cover),
+                      ),
+                      Container(
+                        height: mediaquery.height * .05,
+                        child: Center(
+                          child: TextButton.icon(
+                            icon: Icon(Icons.upload_file),
+                            onPressed: () {
+                              _pickImageStorge();
+                              uploadFile();
+                            },
+                            label: Text("Upload Another Image",
+                                style: TextStyle(color: Colors.red)),
+                          ),
+                        ),
+                      )
+                    ],
+                  ));
   }
 }

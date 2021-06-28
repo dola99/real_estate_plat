@@ -10,6 +10,7 @@ import 'package:real_estate/screens/homesell_screen.dart';
 import 'package:real_estate/screens/login_please.dart';
 import 'package:real_estate/screens/login_screen.dart';
 import 'package:real_estate/screens/sellofiice_screen.dart';
+import 'package:real_estate/screens/welcome_screen.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -17,7 +18,6 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  int index;
   @override
   void didChangeDependencies() {
     Provider.of<Users>(context, listen: false).fetchAndSetUsers();
@@ -28,27 +28,28 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     bool _islogin = Provider.of<Auth>(context).isAuth;
-    var users = Provider.of<Users>(context, listen: false).items;
-    returnData(users);
 
     var drawerHeader = UserAccountsDrawerHeader(
       accountName: _islogin
-          ? Text("${users[index].firstName + ' ' + users[index].lastName}")
+          ? Text(
+              "${WelcomeScreen.allusers[WelcomeScreen.indexuser].firstName + ' ' + WelcomeScreen.allusers[WelcomeScreen.indexuser].lastName}")
           : Text(
               "You Need To Login!!!",
               style: TextStyle(color: Colors.red, fontFamily: 'Oswald'),
             ),
       accountEmail: _islogin
-          ? Text("${users[index].phoneNumber}")
+          ? Text(
+              "${WelcomeScreen.allusers[WelcomeScreen.indexuser].phoneNumber}")
           : Text(
               "join Us Now",
               style: TextStyle(fontFamily: 'Oswald'),
             ),
       currentAccountPicture: _islogin
-          ? users[index].imageurl != null
+          ? WelcomeScreen.allusers[WelcomeScreen.indexuser].imageurl != null
               ? CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(users[index].imageurl))
+                  backgroundImage: NetworkImage(
+                      WelcomeScreen.allusers[WelcomeScreen.indexuser].imageurl))
               : CircleAvatar()
           : Text(''),
     );
@@ -59,7 +60,8 @@ class _AppDrawerState extends State<AppDrawer> {
               if (_islogin == true) {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushNamed(EditUserProfile.routeName,
-                    arguments: users[index].id);
+                    arguments:
+                        WelcomeScreen.allusers[WelcomeScreen.indexuser].id);
               } else {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushNamed(LoginScreen.routeName);
@@ -142,19 +144,5 @@ class _AppDrawerState extends State<AppDrawer> {
     return Drawer(
       child: drawerItems,
     );
-  }
-
-  int returnData(List<User> users) {
-    final id = Provider.of<Auth>(context, listen: false).userId;
-    if (id != null) {
-      for (int i = 0; i < users.length; i++) {
-        if (id == users[i].userId) {
-          print(i);
-          index = i;
-        }
-      }
-    } else {
-      return null;
-    }
   }
 }
