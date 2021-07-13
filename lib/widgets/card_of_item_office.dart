@@ -68,6 +68,7 @@ class CardOfAdViewOffice extends StatelessWidget {
               height: height * .015,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
                   padding: EdgeInsets.only(left: width * .03),
@@ -108,7 +109,7 @@ class CardOfAdViewOffice extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: width * .35,
+                  width: width * .30,
                   child: Center(
                     child: Text(
                       "${office.place}",

@@ -92,7 +92,7 @@ class _ResultFilterOfficeState extends State<ResultFilterOffice> {
         title: Column(
           children: [
             Text(
-              'All Home',
+              'All Office',
               style: TextStyle(
                   fontSize: 17, fontFamily: "Lora", color: Colors.black),
             ),

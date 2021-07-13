@@ -17,7 +17,6 @@ class AddNewHomeForSell extends StatefulWidget {
 
 class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
   List<String> places = [];
-  bool _uplodephoto = false;
   String _drowdownvalue = 'Cairo';
   String _drowdownvalue2 = '15 May city';
   String _drowdownvalue3 = 'Buy';
@@ -197,10 +196,12 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     if (_editedNewHome.id != null) {
       Provider.of<Homes>(context, listen: false)
           .updateproduct(_editedNewHome.id, _editedNewHome);
+          Navigator.of(context).pop();
     } else {
       try {
         await Provider.of<Homes>(context, listen: false)
             .addproduct(_editedNewHome);
+        Navigator.of(context).pop();
       } catch (error) {
         await showDialog(
           context: context,
@@ -255,9 +256,6 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
   }
 
   Future uploadFile() async {
-    setState(() {
-      _uplodephoto = true;
-    });
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile.path)}}');
@@ -267,18 +265,15 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         _mainuploadedimageURL = fileURl;
+      
 
-        _uplodephoto = false;
-
-        //print(imageurl);
+        
       });
     });
   }
 
   Future uploadFile1() async {
-    setState(() {
-      _uplodephoto = true;
-    });
+   
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile1.path)}}');
@@ -288,16 +283,14 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         _uploadedimage1URL = fileURl;
-        _uplodephoto = false;
+       
         //print(imageurl);
       });
     });
   }
 
   Future uploadFile2() async {
-    setState(() {
-      _uplodephoto = true;
-    });
+  
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile2.path)}}');
@@ -307,16 +300,15 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         __uploadedimage2URL = fileURl;
-        _uplodephoto = false;
+        
         //print(imageurl);
       });
     });
   }
 
   Future uploadFile3() async {
-    setState(() {
-      _uplodephoto = true;
-    });
+    
+
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile3.path)}}');
@@ -326,15 +318,13 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         __uploadedimage3URL = fileURl;
-        _uplodephoto = true;
+       
       });
     });
   }
 
   Future uploadFile4() async {
-    setState(() {
-      _uplodephoto = true;
-    });
+    
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile4.path)}}');
@@ -344,15 +334,14 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         __uploadedimage4URL = fileURl;
-        _uplodephoto = true;
+        
       });
     });
   }
 
   Future uploadFile5() async {
-    setState(() {
-      _uplodephoto = true;
-    });
+    
+
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('${Path.basename(_userImageFile5.path)}}');
@@ -362,7 +351,7 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
         __uploadedimage5URL = fileURl;
-        _uplodephoto = true;
+       
       });
     });
   }
@@ -372,7 +361,7 @@ class _AddNewHomeForSellState extends State<AddNewHomeForSell> {
     final mediaquery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Ad'),
+        title: Text('New  Home Ad'),
         centerTitle: true,
         elevation: 0.0,
         actions: [

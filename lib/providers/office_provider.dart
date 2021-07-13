@@ -94,7 +94,7 @@ class Offices with ChangeNotifier {
           'Electric': office.electric,
           'Floor': office.floor,
           'Garden': office.gardern,
-          'CountOfTable': office.cashordeposit,
+          'CountOfTable': office.counttables,
           'Goverment': office.govermnet,
           'imageUrl': office.mainimage,
           'Image1': office.image1,

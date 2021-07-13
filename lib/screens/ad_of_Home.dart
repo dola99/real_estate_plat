@@ -37,7 +37,6 @@ class _AdofHomeState extends State<AdofHome> {
         SellHome.homes[widget.index].image3,
         SellHome.homes[widget.index].image4,
         SellHome.homes[widget.index].image5);
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(

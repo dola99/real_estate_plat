@@ -11,7 +11,7 @@ class FilterScreenOffice extends StatefulWidget {
 class _FilterScreenOfficeState extends State<FilterScreenOffice> {
   List<String> places = [];
   String _drowdownvalue = 'Cairo';
-  String _drowdownvalue2;
+  String _drowdownvalue2 = '15 May city';
   String _drowdownvalue3 = 'Buy';
   String _drowdownvalue4 = 'Cash';
   FocusNode _priceformFocusNode = FocusNode();
@@ -48,7 +48,6 @@ class _FilterScreenOfficeState extends State<FilterScreenOffice> {
             fontFamily: "Lora",
           ),
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt))],
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),

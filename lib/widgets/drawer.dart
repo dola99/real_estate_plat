@@ -127,18 +127,20 @@ class _AppDrawerState extends State<AppDrawer> {
           endIndent: 50,
           indent: 50,
         ),
-        ListTile(
-          leading: Icon(Icons.logout),
-          title: const Text("LogOut"),
-          onTap: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushReplacementNamed('/');
+        _islogin
+            ? ListTile(
+                leading: Icon(Icons.logout),
+                title: const Text("LogOut"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/');
 
-            // Navigator.of(context)
-            //     .pushReplacementNamed(UserProductsScreen.routeName);
-            Provider.of<Auth>(context, listen: false).logout();
-          },
-        ),
+                  // Navigator.of(context)
+                  //     .pushReplacementNamed(UserProductsScreen.routeName);
+                  Provider.of<Auth>(context, listen: false).logout();
+                },
+              )
+            : Text('')
       ],
     );
     return Drawer(

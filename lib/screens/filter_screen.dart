@@ -46,7 +46,7 @@ class _FilterScreenState extends State<FilterScreen> {
             fontFamily: "Lora",
           ),
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt))],
+        
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),

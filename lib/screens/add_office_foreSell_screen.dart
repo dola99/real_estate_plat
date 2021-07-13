@@ -17,7 +17,6 @@ class AddOfficeForSell extends StatefulWidget {
 
 class _AddOfficeForSellState extends State<AddOfficeForSell> {
   List<String> places = [];
-  bool _uplodephoto = false;
   String _drowdownvalue = 'Cairo';
   String _drowdownvalue2 = '15 May city';
   String _drowdownvalue3 = 'Buy';
@@ -187,7 +186,7 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
     if (!isValid) {
-      return;
+      return "plese see the problem";
     }
     _form.currentState.save();
     setState(() {
@@ -196,12 +195,15 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     if (_editedNewOffice.id != null) {
       Provider.of<Offices>(context, listen: false)
           .updateproduct(_editedNewOffice.id, _editedNewOffice);
+      Navigator.of(context).pop();
     } else {
       try {
         await Provider.of<Offices>(context, listen: false)
             .addproduct(_editedNewOffice)
             .then((_) {
-          setState(() {});
+          setState(() {
+            Navigator.of(context).pop();
+          });
         });
       } catch (error) {
         await showDialog(
@@ -264,10 +266,7 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     print("File Uploaded");
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
-        print(storageReference.getDownloadURL().toString());
-        print(fileURl);
         _mainuploadedimageURL = fileURl;
-        //print(imageurl);
       });
     });
   }
@@ -281,8 +280,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     print("File Uploaded");
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
-        print(storageReference.getDownloadURL().toString());
-        print(fileURl);
         _uploadedimage1URL = fileURl;
         //print(imageurl);
       });
@@ -298,8 +295,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     print("File Uploaded");
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
-        print(storageReference.getDownloadURL().toString());
-        print(fileURl);
         __uploadedimage2URL = fileURl;
 
         //print(imageurl);
@@ -316,8 +311,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     print("File Uploaded");
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
-        print(storageReference.getDownloadURL().toString());
-        print(fileURl);
         __uploadedimage3URL = fileURl;
         //print(imageurl);
       });
@@ -333,8 +326,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     print("File Uploaded");
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
-        print(storageReference.getDownloadURL().toString());
-        print(fileURl);
         __uploadedimage4URL = fileURl;
         //print(imageurl);
       });
@@ -350,8 +341,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     print("File Uploaded");
     storageReference.getDownloadURL().then((fileURl) {
       setState(() {
-        print(storageReference.getDownloadURL().toString());
-        print(fileURl);
         __uploadedimage5URL = fileURl;
         //print(imageurl);
       });
@@ -363,7 +352,7 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
     final mediaquery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Ad Office'),
+        title: Text('New Office Ad'),
         centerTitle: true,
         elevation: 0.0,
         actions: [
@@ -393,7 +382,6 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                               ),
                             )
                           : UserAdImagePicker(_pickedImage),
-                     
                       TextFormField(
                         initialValue: _initvalues['title'],
                         focusNode: _titleFocusNode,
@@ -449,7 +437,9 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             DropdownButton<String>(
-                                value: _drowdownvalue,
+                                value: _editedNewOffice.govermnet != ""
+                                    ? _editedNewOffice.govermnet
+                                    : _drowdownvalue,
                                 iconSize: 24,
                                 elevation: 16,
                                 style: TextStyle(color: Colors.black),
@@ -472,7 +462,9 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                                   });
                                 }),
                             DropdownButton<String>(
-                                value: _drowdownvalue2,
+                                value: _editedNewOffice.place != ""
+                                        ? _editedNewOffice.place
+                                        : _drowdownvalue2,
                                 iconSize: 24,
                                 elevation: 16,
                                 style: TextStyle(color: Colors.black),
@@ -502,7 +494,9 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             DropdownButton<String>(
-                                value: _drowdownvalue3,
+                                value:  _editedNewOffice.buyorrent != ""
+                                        ? _editedNewOffice.buyorrent
+                                        : _drowdownvalue3,
                                 iconSize: 24,
                                 elevation: 16,
                                 style: TextStyle(color: Colors.black),
@@ -525,7 +519,9 @@ class _AddOfficeForSellState extends State<AddOfficeForSell> {
                                   });
                                 }),
                             DropdownButton<String>(
-                                value: _drowdownvalue4,
+                                value: _editedNewOffice.cashordeposit != ""
+                                        ? _editedNewOffice.cashordeposit
+                                        : _drowdownvalue4,
                                 iconSize: 24,
                                 elevation: 16,
                                 style: TextStyle(color: Colors.black),

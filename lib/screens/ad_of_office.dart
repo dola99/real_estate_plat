@@ -36,7 +36,6 @@ class _AdOfOfficeState extends State<AdOfOffice> {
         Selloffice.offices[widget.index].image3,
         Selloffice.offices[widget.index].image4,
         Selloffice.offices[widget.index].image5);
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -147,7 +146,7 @@ class _AdOfOfficeState extends State<AdOfOffice> {
                   color: Colors.red,
                 ),
                 title: "Tables",
-                text: "${office.counttables.toString()} .EGP",
+                text: "${office.counttables.toString()}",
               ),
             ),
             Padding(
@@ -202,7 +201,7 @@ class _AdOfOfficeState extends State<AdOfOffice> {
                   color: Colors.red,
                 ),
                 title: "Price",
-                text: "${office.price.toString()} .EGP",
+                text: "${office.price.toString()} EG",
               ),
             ),
             Padding(

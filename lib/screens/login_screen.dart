@@ -6,10 +6,6 @@ import 'Signup.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/Login_screen';
-  const LoginScreen({
-    Key key,
-  }) : super(key: key);
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -30,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         content: Text(message),
         actions: <Widget>[
           // ignore: deprecated_member_use
-          FlatButton(
+          TextButton(
             child: Text('Okay'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -56,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _authData['email'],
         _authData['password'],
       );
+      Navigator.of(context).pop();
     } on HttpException catch (error) {
       var errorMessage = 'Authentication failed';
       if (error.toString().contains('EMAIL_EXISTS')) {
@@ -78,7 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _isLoading = false;
-      Navigator.of(context).pop();
     });
   }
 

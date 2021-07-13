@@ -4,7 +4,6 @@ import 'package:real_estate/providers/Users.dart';
 import 'package:real_estate/providers/auth.dart';
 import 'package:real_estate/providers/office_provider.dart';
 import 'package:real_estate/providers/open_apps.dart';
-import 'package:real_estate/providers/real_estate.dart';
 import 'package:real_estate/providers/real_estate_provider.dart';
 import 'package:real_estate/screens/AdsOfUser_screen.dart';
 import 'package:real_estate/screens/Ads_Of_Client_Office.dart';
